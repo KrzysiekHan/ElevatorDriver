@@ -1,0 +1,492 @@
+
+Daniel_winda_v02.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000484  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000019  00800060  00800060  000004f8  2**0
+                  ALLOC
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	26 c2       	rjmp	.+1100   	; 0x454 <__vector_3>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a9 37       	cpi	r26, 0x79	; 121
+  3e:	b1 07       	cpc	r27, r17
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	df d1       	rcall	.+958    	; 0x402 <main>
+  44:	1d c2       	rjmp	.+1082   	; 0x480 <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <generator>:
+  48:	81 30       	cpi	r24, 0x01	; 1
+  4a:	19 f4       	brne	.+6      	; 0x52 <generator+0xa>
+  4c:	80 93 63 00 	sts	0x0063, r24
+  50:	08 95       	ret
+  52:	10 92 63 00 	sts	0x0063, r1
+  56:	08 95       	ret
+
+00000058 <silnik>:
+  58:	98 2f       	mov	r25, r24
+  5a:	88 23       	and	r24, r24
+  5c:	31 f4       	brne	.+12     	; 0x6a <silnik+0x12>
+  5e:	10 92 63 00 	sts	0x0063, r1
+  62:	aa 9a       	sbi	0x15, 2	; 21
+  64:	10 92 62 00 	sts	0x0062, r1
+  68:	08 95       	ret
+  6a:	81 30       	cpi	r24, 0x01	; 1
+  6c:	59 f4       	brne	.+22     	; 0x84 <silnik+0x2c>
+  6e:	80 91 69 00 	lds	r24, 0x0069
+  72:	88 23       	and	r24, r24
+  74:	a1 f4       	brne	.+40     	; 0x9e <silnik+0x46>
+  76:	90 93 63 00 	sts	0x0063, r25
+  7a:	aa 9a       	sbi	0x15, 2	; 21
+  7c:	a9 9a       	sbi	0x15, 1	; 21
+  7e:	90 93 62 00 	sts	0x0062, r25
+  82:	08 95       	ret
+  84:	82 30       	cpi	r24, 0x02	; 2
+  86:	59 f4       	brne	.+22     	; 0x9e <silnik+0x46>
+  88:	80 91 66 00 	lds	r24, 0x0066
+  8c:	88 23       	and	r24, r24
+  8e:	39 f4       	brne	.+14     	; 0x9e <silnik+0x46>
+  90:	81 e0       	ldi	r24, 0x01	; 1
+  92:	80 93 63 00 	sts	0x0063, r24
+  96:	aa 9a       	sbi	0x15, 2	; 21
+  98:	a9 98       	cbi	0x15, 1	; 21
+  9a:	90 93 62 00 	sts	0x0062, r25
+  9e:	08 95       	ret
+
+000000a0 <obsluga_przyciskow>:
+  a0:	80 91 77 00 	lds	r24, 0x0077
+  a4:	88 23       	and	r24, r24
+  a6:	41 f4       	brne	.+16     	; 0xb8 <obsluga_przyciskow+0x18>
+  a8:	80 99       	sbic	0x10, 0	; 16
+  aa:	0b c0       	rjmp	.+22     	; 0xc2 <obsluga_przyciskow+0x22>
+  ac:	81 e0       	ldi	r24, 0x01	; 1
+  ae:	80 93 77 00 	sts	0x0077, r24
+  b2:	80 93 60 00 	sts	0x0060, r24
+  b6:	05 c0       	rjmp	.+10     	; 0xc2 <obsluga_przyciskow+0x22>
+  b8:	80 9b       	sbis	0x10, 0	; 16
+  ba:	03 c0       	rjmp	.+6      	; 0xc2 <obsluga_przyciskow+0x22>
+  bc:	8f 5f       	subi	r24, 0xFF	; 255
+  be:	80 93 77 00 	sts	0x0077, r24
+  c2:	80 91 68 00 	lds	r24, 0x0068
+  c6:	88 23       	and	r24, r24
+  c8:	41 f4       	brne	.+16     	; 0xda <obsluga_przyciskow+0x3a>
+  ca:	81 99       	sbic	0x10, 1	; 16
+  cc:	0b c0       	rjmp	.+22     	; 0xe4 <obsluga_przyciskow+0x44>
+  ce:	81 e0       	ldi	r24, 0x01	; 1
+  d0:	80 93 68 00 	sts	0x0068, r24
+  d4:	80 93 71 00 	sts	0x0071, r24
+  d8:	05 c0       	rjmp	.+10     	; 0xe4 <obsluga_przyciskow+0x44>
+  da:	81 9b       	sbis	0x10, 1	; 16
+  dc:	03 c0       	rjmp	.+6      	; 0xe4 <obsluga_przyciskow+0x44>
+  de:	8f 5f       	subi	r24, 0xFF	; 255
+  e0:	80 93 68 00 	sts	0x0068, r24
+  e4:	80 91 74 00 	lds	r24, 0x0074
+  e8:	88 23       	and	r24, r24
+  ea:	41 f4       	brne	.+16     	; 0xfc <obsluga_przyciskow+0x5c>
+  ec:	82 99       	sbic	0x10, 2	; 16
+  ee:	0b c0       	rjmp	.+22     	; 0x106 <obsluga_przyciskow+0x66>
+  f0:	81 e0       	ldi	r24, 0x01	; 1
+  f2:	80 93 74 00 	sts	0x0074, r24
+  f6:	80 93 6e 00 	sts	0x006E, r24
+  fa:	05 c0       	rjmp	.+10     	; 0x106 <obsluga_przyciskow+0x66>
+  fc:	82 9b       	sbis	0x10, 2	; 16
+  fe:	03 c0       	rjmp	.+6      	; 0x106 <obsluga_przyciskow+0x66>
+ 100:	8f 5f       	subi	r24, 0xFF	; 255
+ 102:	80 93 74 00 	sts	0x0074, r24
+ 106:	80 91 6c 00 	lds	r24, 0x006C
+ 10a:	88 23       	and	r24, r24
+ 10c:	41 f4       	brne	.+16     	; 0x11e <obsluga_przyciskow+0x7e>
+ 10e:	83 99       	sbic	0x10, 3	; 16
+ 110:	0b c0       	rjmp	.+22     	; 0x128 <obsluga_przyciskow+0x88>
+ 112:	81 e0       	ldi	r24, 0x01	; 1
+ 114:	80 93 6c 00 	sts	0x006C, r24
+ 118:	80 93 78 00 	sts	0x0078, r24
+ 11c:	08 95       	ret
+ 11e:	83 9b       	sbis	0x10, 3	; 16
+ 120:	03 c0       	rjmp	.+6      	; 0x128 <obsluga_przyciskow+0x88>
+ 122:	8f 5f       	subi	r24, 0xFF	; 255
+ 124:	80 93 6c 00 	sts	0x006C, r24
+ 128:	08 95       	ret
+
+0000012a <obsluga_krancowych>:
+ 12a:	80 91 6f 00 	lds	r24, 0x006F
+ 12e:	88 23       	and	r24, r24
+ 130:	71 f4       	brne	.+28     	; 0x14e <obsluga_krancowych+0x24>
+ 132:	84 99       	sbic	0x10, 4	; 16
+ 134:	11 c0       	rjmp	.+34     	; 0x158 <obsluga_krancowych+0x2e>
+ 136:	81 e0       	ldi	r24, 0x01	; 1
+ 138:	80 93 6f 00 	sts	0x006F, r24
+ 13c:	80 93 75 00 	sts	0x0075, r24
+ 140:	10 92 76 00 	sts	0x0076, r1
+ 144:	10 92 6a 00 	sts	0x006A, r1
+ 148:	10 92 72 00 	sts	0x0072, r1
+ 14c:	05 c0       	rjmp	.+10     	; 0x158 <obsluga_krancowych+0x2e>
+ 14e:	84 9b       	sbis	0x10, 4	; 16
+ 150:	03 c0       	rjmp	.+6      	; 0x158 <obsluga_krancowych+0x2e>
+ 152:	8f 5f       	subi	r24, 0xFF	; 255
+ 154:	80 93 6f 00 	sts	0x006F, r24
+ 158:	80 91 64 00 	lds	r24, 0x0064
+ 15c:	88 23       	and	r24, r24
+ 15e:	71 f4       	brne	.+28     	; 0x17c <obsluga_krancowych+0x52>
+ 160:	85 99       	sbic	0x10, 5	; 16
+ 162:	11 c0       	rjmp	.+34     	; 0x186 <obsluga_krancowych+0x5c>
+ 164:	81 e0       	ldi	r24, 0x01	; 1
+ 166:	80 93 64 00 	sts	0x0064, r24
+ 16a:	10 92 75 00 	sts	0x0075, r1
+ 16e:	80 93 76 00 	sts	0x0076, r24
+ 172:	10 92 6a 00 	sts	0x006A, r1
+ 176:	10 92 72 00 	sts	0x0072, r1
+ 17a:	05 c0       	rjmp	.+10     	; 0x186 <obsluga_krancowych+0x5c>
+ 17c:	85 9b       	sbis	0x10, 5	; 16
+ 17e:	03 c0       	rjmp	.+6      	; 0x186 <obsluga_krancowych+0x5c>
+ 180:	8f 5f       	subi	r24, 0xFF	; 255
+ 182:	80 93 64 00 	sts	0x0064, r24
+ 186:	80 91 67 00 	lds	r24, 0x0067
+ 18a:	88 23       	and	r24, r24
+ 18c:	71 f4       	brne	.+28     	; 0x1aa <obsluga_krancowych+0x80>
+ 18e:	86 99       	sbic	0x10, 6	; 16
+ 190:	11 c0       	rjmp	.+34     	; 0x1b4 <obsluga_krancowych+0x8a>
+ 192:	81 e0       	ldi	r24, 0x01	; 1
+ 194:	80 93 67 00 	sts	0x0067, r24
+ 198:	10 92 75 00 	sts	0x0075, r1
+ 19c:	10 92 76 00 	sts	0x0076, r1
+ 1a0:	80 93 6a 00 	sts	0x006A, r24
+ 1a4:	10 92 72 00 	sts	0x0072, r1
+ 1a8:	05 c0       	rjmp	.+10     	; 0x1b4 <obsluga_krancowych+0x8a>
+ 1aa:	86 9b       	sbis	0x10, 6	; 16
+ 1ac:	03 c0       	rjmp	.+6      	; 0x1b4 <obsluga_krancowych+0x8a>
+ 1ae:	8f 5f       	subi	r24, 0xFF	; 255
+ 1b0:	80 93 67 00 	sts	0x0067, r24
+ 1b4:	80 91 73 00 	lds	r24, 0x0073
+ 1b8:	88 23       	and	r24, r24
+ 1ba:	71 f4       	brne	.+28     	; 0x1d8 <obsluga_krancowych+0xae>
+ 1bc:	87 99       	sbic	0x10, 7	; 16
+ 1be:	11 c0       	rjmp	.+34     	; 0x1e2 <obsluga_krancowych+0xb8>
+ 1c0:	81 e0       	ldi	r24, 0x01	; 1
+ 1c2:	80 93 73 00 	sts	0x0073, r24
+ 1c6:	10 92 75 00 	sts	0x0075, r1
+ 1ca:	10 92 76 00 	sts	0x0076, r1
+ 1ce:	10 92 6a 00 	sts	0x006A, r1
+ 1d2:	80 93 72 00 	sts	0x0072, r24
+ 1d6:	08 95       	ret
+ 1d8:	87 9b       	sbis	0x10, 7	; 16
+ 1da:	03 c0       	rjmp	.+6      	; 0x1e2 <obsluga_krancowych+0xb8>
+ 1dc:	8f 5f       	subi	r24, 0xFF	; 255
+ 1de:	80 93 73 00 	sts	0x0073, r24
+ 1e2:	08 95       	ret
+
+000001e4 <stany_maksymalne>:
+ 1e4:	80 91 75 00 	lds	r24, 0x0075
+ 1e8:	88 23       	and	r24, r24
+ 1ea:	21 f0       	breq	.+8      	; 0x1f4 <stany_maksymalne+0x10>
+ 1ec:	81 e0       	ldi	r24, 0x01	; 1
+ 1ee:	80 93 66 00 	sts	0x0066, r24
+ 1f2:	02 c0       	rjmp	.+4      	; 0x1f8 <stany_maksymalne+0x14>
+ 1f4:	10 92 66 00 	sts	0x0066, r1
+ 1f8:	80 91 72 00 	lds	r24, 0x0072
+ 1fc:	88 23       	and	r24, r24
+ 1fe:	21 f0       	breq	.+8      	; 0x208 <stany_maksymalne+0x24>
+ 200:	81 e0       	ldi	r24, 0x01	; 1
+ 202:	80 93 69 00 	sts	0x0069, r24
+ 206:	08 95       	ret
+ 208:	10 92 69 00 	sts	0x0069, r1
+ 20c:	08 95       	ret
+
+0000020e <logika_windy>:
+ 20e:	80 91 75 00 	lds	r24, 0x0075
+ 212:	88 23       	and	r24, r24
+ 214:	19 f0       	breq	.+6      	; 0x21c <logika_windy+0xe>
+ 216:	81 e0       	ldi	r24, 0x01	; 1
+ 218:	80 93 6d 00 	sts	0x006D, r24
+ 21c:	80 91 76 00 	lds	r24, 0x0076
+ 220:	88 23       	and	r24, r24
+ 222:	19 f0       	breq	.+6      	; 0x22a <logika_windy+0x1c>
+ 224:	82 e0       	ldi	r24, 0x02	; 2
+ 226:	80 93 6d 00 	sts	0x006D, r24
+ 22a:	80 91 6a 00 	lds	r24, 0x006A
+ 22e:	88 23       	and	r24, r24
+ 230:	19 f0       	breq	.+6      	; 0x238 <logika_windy+0x2a>
+ 232:	83 e0       	ldi	r24, 0x03	; 3
+ 234:	80 93 6d 00 	sts	0x006D, r24
+ 238:	80 91 72 00 	lds	r24, 0x0072
+ 23c:	88 23       	and	r24, r24
+ 23e:	19 f0       	breq	.+6      	; 0x246 <logika_windy+0x38>
+ 240:	84 e0       	ldi	r24, 0x04	; 4
+ 242:	80 93 6d 00 	sts	0x006D, r24
+ 246:	90 91 60 00 	lds	r25, 0x0060
+ 24a:	20 91 71 00 	lds	r18, 0x0071
+ 24e:	30 91 6e 00 	lds	r19, 0x006E
+ 252:	40 91 78 00 	lds	r20, 0x0078
+ 256:	82 2f       	mov	r24, r18
+ 258:	89 0f       	add	r24, r25
+ 25a:	83 0f       	add	r24, r19
+ 25c:	84 0f       	add	r24, r20
+ 25e:	80 93 6b 00 	sts	0x006B, r24
+ 262:	82 30       	cpi	r24, 0x02	; 2
+ 264:	a0 f5       	brcc	.+104    	; 0x2ce <logika_windy+0xc0>
+ 266:	99 23       	and	r25, r25
+ 268:	19 f0       	breq	.+6      	; 0x270 <logika_windy+0x62>
+ 26a:	81 e0       	ldi	r24, 0x01	; 1
+ 26c:	80 93 65 00 	sts	0x0065, r24
+ 270:	22 23       	and	r18, r18
+ 272:	19 f0       	breq	.+6      	; 0x27a <logika_windy+0x6c>
+ 274:	82 e0       	ldi	r24, 0x02	; 2
+ 276:	80 93 65 00 	sts	0x0065, r24
+ 27a:	33 23       	and	r19, r19
+ 27c:	19 f0       	breq	.+6      	; 0x284 <logika_windy+0x76>
+ 27e:	83 e0       	ldi	r24, 0x03	; 3
+ 280:	80 93 65 00 	sts	0x0065, r24
+ 284:	44 23       	and	r20, r20
+ 286:	19 f0       	breq	.+6      	; 0x28e <logika_windy+0x80>
+ 288:	84 e0       	ldi	r24, 0x04	; 4
+ 28a:	80 93 65 00 	sts	0x0065, r24
+ 28e:	90 91 65 00 	lds	r25, 0x0065
+ 292:	80 91 6d 00 	lds	r24, 0x006D
+ 296:	89 17       	cp	r24, r25
+ 298:	10 f4       	brcc	.+4      	; 0x29e <logika_windy+0x90>
+ 29a:	81 e0       	ldi	r24, 0x01	; 1
+ 29c:	dd de       	rcall	.-582    	; 0x58 <silnik>
+ 29e:	90 91 65 00 	lds	r25, 0x0065
+ 2a2:	80 91 6d 00 	lds	r24, 0x006D
+ 2a6:	98 17       	cp	r25, r24
+ 2a8:	10 f4       	brcc	.+4      	; 0x2ae <logika_windy+0xa0>
+ 2aa:	82 e0       	ldi	r24, 0x02	; 2
+ 2ac:	d5 de       	rcall	.-598    	; 0x58 <silnik>
+ 2ae:	90 91 65 00 	lds	r25, 0x0065
+ 2b2:	80 91 6d 00 	lds	r24, 0x006D
+ 2b6:	98 17       	cp	r25, r24
+ 2b8:	51 f4       	brne	.+20     	; 0x2ce <logika_windy+0xc0>
+ 2ba:	80 e0       	ldi	r24, 0x00	; 0
+ 2bc:	cd de       	rcall	.-614    	; 0x58 <silnik>
+ 2be:	10 92 60 00 	sts	0x0060, r1
+ 2c2:	10 92 71 00 	sts	0x0071, r1
+ 2c6:	10 92 6e 00 	sts	0x006E, r1
+ 2ca:	10 92 78 00 	sts	0x0078, r1
+ 2ce:	80 91 6b 00 	lds	r24, 0x006B
+ 2d2:	82 30       	cpi	r24, 0x02	; 2
+ 2d4:	08 f4       	brcc	.+2      	; 0x2d8 <logika_windy+0xca>
+ 2d6:	82 c0       	rjmp	.+260    	; 0x3dc <logika_windy+0x1ce>
+ 2d8:	82 30       	cpi	r24, 0x02	; 2
+ 2da:	61 f5       	brne	.+88     	; 0x334 <logika_windy+0x126>
+ 2dc:	80 91 60 00 	lds	r24, 0x0060
+ 2e0:	88 23       	and	r24, r24
+ 2e2:	39 f0       	breq	.+14     	; 0x2f2 <logika_windy+0xe4>
+ 2e4:	80 91 65 00 	lds	r24, 0x0065
+ 2e8:	81 30       	cpi	r24, 0x01	; 1
+ 2ea:	19 f0       	breq	.+6      	; 0x2f2 <logika_windy+0xe4>
+ 2ec:	81 e0       	ldi	r24, 0x01	; 1
+ 2ee:	80 93 61 00 	sts	0x0061, r24
+ 2f2:	80 91 71 00 	lds	r24, 0x0071
+ 2f6:	88 23       	and	r24, r24
+ 2f8:	39 f0       	breq	.+14     	; 0x308 <logika_windy+0xfa>
+ 2fa:	80 91 65 00 	lds	r24, 0x0065
+ 2fe:	82 30       	cpi	r24, 0x02	; 2
+ 300:	19 f0       	breq	.+6      	; 0x308 <logika_windy+0xfa>
+ 302:	82 e0       	ldi	r24, 0x02	; 2
+ 304:	80 93 61 00 	sts	0x0061, r24
+ 308:	80 91 6e 00 	lds	r24, 0x006E
+ 30c:	88 23       	and	r24, r24
+ 30e:	39 f0       	breq	.+14     	; 0x31e <logika_windy+0x110>
+ 310:	80 91 65 00 	lds	r24, 0x0065
+ 314:	83 30       	cpi	r24, 0x03	; 3
+ 316:	19 f0       	breq	.+6      	; 0x31e <logika_windy+0x110>
+ 318:	83 e0       	ldi	r24, 0x03	; 3
+ 31a:	80 93 61 00 	sts	0x0061, r24
+ 31e:	80 91 78 00 	lds	r24, 0x0078
+ 322:	88 23       	and	r24, r24
+ 324:	39 f0       	breq	.+14     	; 0x334 <logika_windy+0x126>
+ 326:	80 91 65 00 	lds	r24, 0x0065
+ 32a:	84 30       	cpi	r24, 0x04	; 4
+ 32c:	19 f0       	breq	.+6      	; 0x334 <logika_windy+0x126>
+ 32e:	84 e0       	ldi	r24, 0x04	; 4
+ 330:	80 93 61 00 	sts	0x0061, r24
+ 334:	80 91 61 00 	lds	r24, 0x0061
+ 338:	81 30       	cpi	r24, 0x01	; 1
+ 33a:	89 f4       	brne	.+34     	; 0x35e <logika_windy+0x150>
+ 33c:	84 99       	sbic	0x10, 4	; 16
+ 33e:	0f c0       	rjmp	.+30     	; 0x35e <logika_windy+0x150>
+ 340:	80 e0       	ldi	r24, 0x00	; 0
+ 342:	8a de       	rcall	.-748    	; 0x58 <silnik>
+ 344:	10 92 61 00 	sts	0x0061, r1
+ 348:	80 e3       	ldi	r24, 0x30	; 48
+ 34a:	95 e7       	ldi	r25, 0x75	; 117
+ 34c:	28 ec       	ldi	r18, 0xC8	; 200
+ 34e:	30 e0       	ldi	r19, 0x00	; 0
+ 350:	f9 01       	movw	r30, r18
+ 352:	31 97       	sbiw	r30, 0x01	; 1
+ 354:	f1 f7       	brne	.-4      	; 0x352 <logika_windy+0x144>
+ 356:	01 97       	sbiw	r24, 0x01	; 1
+ 358:	d9 f7       	brne	.-10     	; 0x350 <logika_windy+0x142>
+ 35a:	10 92 60 00 	sts	0x0060, r1
+ 35e:	80 91 61 00 	lds	r24, 0x0061
+ 362:	82 30       	cpi	r24, 0x02	; 2
+ 364:	89 f4       	brne	.+34     	; 0x388 <logika_windy+0x17a>
+ 366:	85 99       	sbic	0x10, 5	; 16
+ 368:	0f c0       	rjmp	.+30     	; 0x388 <logika_windy+0x17a>
+ 36a:	80 e0       	ldi	r24, 0x00	; 0
+ 36c:	75 de       	rcall	.-790    	; 0x58 <silnik>
+ 36e:	10 92 61 00 	sts	0x0061, r1
+ 372:	80 e3       	ldi	r24, 0x30	; 48
+ 374:	95 e7       	ldi	r25, 0x75	; 117
+ 376:	28 ec       	ldi	r18, 0xC8	; 200
+ 378:	30 e0       	ldi	r19, 0x00	; 0
+ 37a:	f9 01       	movw	r30, r18
+ 37c:	31 97       	sbiw	r30, 0x01	; 1
+ 37e:	f1 f7       	brne	.-4      	; 0x37c <logika_windy+0x16e>
+ 380:	01 97       	sbiw	r24, 0x01	; 1
+ 382:	d9 f7       	brne	.-10     	; 0x37a <logika_windy+0x16c>
+ 384:	10 92 71 00 	sts	0x0071, r1
+ 388:	80 91 61 00 	lds	r24, 0x0061
+ 38c:	83 30       	cpi	r24, 0x03	; 3
+ 38e:	89 f4       	brne	.+34     	; 0x3b2 <logika_windy+0x1a4>
+ 390:	86 99       	sbic	0x10, 6	; 16
+ 392:	0f c0       	rjmp	.+30     	; 0x3b2 <logika_windy+0x1a4>
+ 394:	80 e0       	ldi	r24, 0x00	; 0
+ 396:	60 de       	rcall	.-832    	; 0x58 <silnik>
+ 398:	10 92 61 00 	sts	0x0061, r1
+ 39c:	80 e3       	ldi	r24, 0x30	; 48
+ 39e:	95 e7       	ldi	r25, 0x75	; 117
+ 3a0:	28 ec       	ldi	r18, 0xC8	; 200
+ 3a2:	30 e0       	ldi	r19, 0x00	; 0
+ 3a4:	f9 01       	movw	r30, r18
+ 3a6:	31 97       	sbiw	r30, 0x01	; 1
+ 3a8:	f1 f7       	brne	.-4      	; 0x3a6 <logika_windy+0x198>
+ 3aa:	01 97       	sbiw	r24, 0x01	; 1
+ 3ac:	d9 f7       	brne	.-10     	; 0x3a4 <logika_windy+0x196>
+ 3ae:	10 92 6e 00 	sts	0x006E, r1
+ 3b2:	80 91 61 00 	lds	r24, 0x0061
+ 3b6:	84 30       	cpi	r24, 0x04	; 4
+ 3b8:	89 f4       	brne	.+34     	; 0x3dc <logika_windy+0x1ce>
+ 3ba:	87 99       	sbic	0x10, 7	; 16
+ 3bc:	0f c0       	rjmp	.+30     	; 0x3dc <logika_windy+0x1ce>
+ 3be:	80 e0       	ldi	r24, 0x00	; 0
+ 3c0:	4b de       	rcall	.-874    	; 0x58 <silnik>
+ 3c2:	10 92 61 00 	sts	0x0061, r1
+ 3c6:	80 e3       	ldi	r24, 0x30	; 48
+ 3c8:	95 e7       	ldi	r25, 0x75	; 117
+ 3ca:	28 ec       	ldi	r18, 0xC8	; 200
+ 3cc:	30 e0       	ldi	r19, 0x00	; 0
+ 3ce:	f9 01       	movw	r30, r18
+ 3d0:	31 97       	sbiw	r30, 0x01	; 1
+ 3d2:	f1 f7       	brne	.-4      	; 0x3d0 <logika_windy+0x1c2>
+ 3d4:	01 97       	sbiw	r24, 0x01	; 1
+ 3d6:	d9 f7       	brne	.-10     	; 0x3ce <logika_windy+0x1c0>
+ 3d8:	10 92 78 00 	sts	0x0078, r1
+ 3dc:	90 91 65 00 	lds	r25, 0x0065
+ 3e0:	80 91 6d 00 	lds	r24, 0x006D
+ 3e4:	98 17       	cp	r25, r24
+ 3e6:	61 f4       	brne	.+24     	; 0x400 <logika_windy+0x1f2>
+ 3e8:	80 e0       	ldi	r24, 0x00	; 0
+ 3ea:	36 de       	rcall	.-916    	; 0x58 <silnik>
+ 3ec:	10 92 60 00 	sts	0x0060, r1
+ 3f0:	10 92 71 00 	sts	0x0071, r1
+ 3f4:	10 92 6e 00 	sts	0x006E, r1
+ 3f8:	10 92 78 00 	sts	0x0078, r1
+ 3fc:	10 92 61 00 	sts	0x0061, r1
+ 400:	08 95       	ret
+
+00000402 <main>:
+ 402:	84 b3       	in	r24, 0x14	; 20
+ 404:	8e 60       	ori	r24, 0x0E	; 14
+ 406:	84 bb       	out	0x14, r24	; 20
+ 408:	81 b3       	in	r24, 0x11	; 17
+ 40a:	11 ba       	out	0x11, r1	; 17
+ 40c:	82 b3       	in	r24, 0x12	; 18
+ 40e:	9f ef       	ldi	r25, 0xFF	; 255
+ 410:	92 bb       	out	0x12, r25	; 18
+ 412:	88 e0       	ldi	r24, 0x08	; 8
+ 414:	85 bd       	out	0x25, r24	; 37
+ 416:	83 e0       	ldi	r24, 0x03	; 3
+ 418:	85 bd       	out	0x25, r24	; 37
+ 41a:	93 bd       	out	0x23, r25	; 35
+ 41c:	80 e8       	ldi	r24, 0x80	; 128
+ 41e:	89 bf       	out	0x39, r24	; 57
+ 420:	78 94       	sei
+ 422:	10 92 63 00 	sts	0x0063, r1
+ 426:	81 e0       	ldi	r24, 0x01	; 1
+ 428:	80 93 60 00 	sts	0x0060, r24
+ 42c:	10 92 71 00 	sts	0x0071, r1
+ 430:	10 92 6e 00 	sts	0x006E, r1
+ 434:	10 92 78 00 	sts	0x0078, r1
+ 438:	10 92 75 00 	sts	0x0075, r1
+ 43c:	10 92 76 00 	sts	0x0076, r1
+ 440:	10 92 6a 00 	sts	0x006A, r1
+ 444:	10 92 72 00 	sts	0x0072, r1
+ 448:	aa 98       	cbi	0x15, 2	; 21
+ 44a:	2a de       	rcall	.-940    	; 0xa0 <obsluga_przyciskow>
+ 44c:	6e de       	rcall	.-804    	; 0x12a <obsluga_krancowych>
+ 44e:	ca de       	rcall	.-620    	; 0x1e4 <stany_maksymalne>
+ 450:	de de       	rcall	.-580    	; 0x20e <logika_windy>
+ 452:	fb cf       	rjmp	.-10     	; 0x44a <main+0x48>
+
+00000454 <__vector_3>:
+ 454:	1f 92       	push	r1
+ 456:	0f 92       	push	r0
+ 458:	0f b6       	in	r0, 0x3f	; 63
+ 45a:	0f 92       	push	r0
+ 45c:	11 24       	eor	r1, r1
+ 45e:	8f 93       	push	r24
+ 460:	9f 93       	push	r25
+ 462:	80 91 63 00 	lds	r24, 0x0063
+ 466:	81 30       	cpi	r24, 0x01	; 1
+ 468:	21 f4       	brne	.+8      	; 0x472 <__stack+0x13>
+ 46a:	85 b3       	in	r24, 0x15	; 21
+ 46c:	98 e0       	ldi	r25, 0x08	; 8
+ 46e:	89 27       	eor	r24, r25
+ 470:	85 bb       	out	0x15, r24	; 21
+ 472:	9f 91       	pop	r25
+ 474:	8f 91       	pop	r24
+ 476:	0f 90       	pop	r0
+ 478:	0f be       	out	0x3f, r0	; 63
+ 47a:	0f 90       	pop	r0
+ 47c:	1f 90       	pop	r1
+ 47e:	18 95       	reti
+
+00000480 <_exit>:
+ 480:	f8 94       	cli
+
+00000482 <__stop_program>:
+ 482:	ff cf       	rjmp	.-2      	; 0x482 <__stop_program>
